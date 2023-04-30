@@ -16,14 +16,13 @@ textarea {
   padding: 5px;
 }
 
-.keyboard {
+#keyboard {
   display: flex;
   flex-wrap: wrap;
   width: 820px;
   background: #e2e2e2;
 }
-
-.keyboard-key {
+#keyboard-key {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,47 +34,32 @@ textarea {
   border-radius: 10px;
   background: #ffffff;
 }
-
-.keyboard-key:hover {
+#keyboard-key:hover {
   cursor: pointer;
-  position: relative;
-  top: 1px;
-  left: 1px;
   background: #bbd8e0;
   box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
   transition: 0.5s ease-out;
 }
-
-.keyboard-key[data-code=Backspace] {
+#keyboard-key[data-code=Backspace] {
   width: 106px;
 }
-
-.keyboard-key[data-code=Tab] {
+#keyboard-key[data-code=Tab] {
   width: 52px;
 }
-
-.keyboard-key[data-code=CapsLock] {
+#keyboard-key[data-code=CapsLock] {
   width: 90px;
 }
-
-.keyboard-key[data-code=Enter] {
+#keyboard-key[data-code=Enter] {
   width: 110px;
 }
-
-.keyboard-key[data-code=ShiftLeft] {
+#keyboard-key[data-code=ShiftLeft] {
   width: 106px;
 }
-
-.keyboard-key[data-code=ShiftLeft] {
+#keyboard-key[data-code=ShiftLeft] {
   width: 106px;
 }
-
-.keyboard-key[data-code=Space] {
+#keyboard-key[data-code=Space] {
   width: 376px;
-}
-
-.clear-fix {
-  clear: both;
 }
 
 .active {
