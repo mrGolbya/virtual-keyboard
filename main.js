@@ -200,29 +200,29 @@ const KEYBOARD_RU = [
   { code: 'ArrowDown', key: '&#x25bc;' },
   { code: 'ArrowRight', key: '&#x25ba;' },
 ];
-// document.body.innerHTML = `<textarea name="screen" id="area" cols="107" rows="10" placeholder="Введите данные с клавиатуры" autofocus></textarea>
-//                           <div id="keyboard"></div><br>
-//                           <div>Клавиатура создана в системе Windows <br>
-//                            Для языка переключения: левые Shift + Alt</div>`;
+document.body.innerHTML = `<textarea name="screen" id="area" cols="107" rows="10" placeholder="Введите данные с клавиатуры" autofocus></textarea>
+                          <div id="keyboard"></div><br>
+                          <div>Клавиатура создана в системе Windows <br>
+                           Для языка переключения: левые Shift + Alt</div>`;
 
-// const AREA = document.querySelector('#area');
-// const BED_ACTION = ['Enter', 'Backspace', 'Del', 'Tab', 'Caps Lock', 'Shift', 'Alt', 'Ctrl', '&#x25ba;', '&#x25bc;', '&#x25ba;', 'EN'];
+const AREA = document.querySelector('#area');
+const BED_ACTION = ['Enter', 'Backspace', 'Del', 'Tab', 'Caps Lock', 'Shift', 'Alt', 'Ctrl', '&#x25ba;', '&#x25bc;', '&#x25ba;', 'EN'];
 
-// const lang = (navigator.language || navigator.userLanguage || navigator.userLanguage)
-//   .substr(0, 2).toLowerCase();
-// if (lang === 'ru') {
-//   let out = '';
-//   for (let i = 0; i < KEYBOARD_RU.length; i += 1) {
-//     out += `<div id="keyboard-key" data-code="${KEYBOARD_RU[i].code}" data-key="${KEYBOARD_RU[i].key}">${KEYBOARD_RU[i].key}</div>`;
-//   }
-//   document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
-// } else {
-//   let out = '';
-//   for (let i = 0; i < KEYBOARD_EN.length; i += 1) {
-//     out += `<div class="keyboard-key" data-code="${KEYBOARD_EN[i].code}" data-key="${KEYBOARD_EN[i].key}">${KEYBOARD_EN[i].key}</div>`;
-//   }
-//   document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
-// }
+const lang = (navigator.language || navigator.userLanguage || navigator.userLanguage)
+  .substr(0, 2).toLowerCase();
+if (lang === 'ru') {
+  let out = '';
+  for (let i = 0; i < KEYBOARD_RU.length; i += 1) {
+    out += `<div id="keyboard-key" data-code="${KEYBOARD_RU[i].code}" data-key="${KEYBOARD_RU[i].key}">${KEYBOARD_RU[i].key}</div>`;
+  }
+  document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
+} else {
+  let out = '';
+  for (let i = 0; i < KEYBOARD_EN.length; i += 1) {
+    out += `<div class="keyboard-key" data-code="${KEYBOARD_EN[i].code}" data-key="${KEYBOARD_EN[i].key}">${KEYBOARD_EN[i].key}</div>`;
+  }
+  document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
+}
 
 // const KEYS = document.querySelectorAll('#keyboard-key');
 
