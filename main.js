@@ -224,3 +224,72 @@ if (lang === 'ru') {
   }
   document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
 }
+
+const KEYS = document.querySelectorAll('#keyboard-key');
+
+function mouseClick(event) {
+  const ACTION_KEY = event.target.dataset.key;
+  if (!BED_ACTION.includes(ACTION_KEY)) {
+    AREA.value += ACTION_KEY;
+  } else if (ACTION_KEY === 'Enter') {
+    AREA.value += '\n';
+  } else if (ACTION_KEY === 'Tab') {
+    AREA.value += '  ';
+  }
+  // else if (ACTION_KEY === 'Backspace') {
+  // AREA.value = AREA.value.substr(0, AREA.value.length - 1);
+  // alert(AREA.value.substr(0, AREA.selectionStart))
+  // AREA.value = AREA.value.substr(0, AREA.selectionStart);
+  // alert(`selectionStart:${AREA.value.slice(AREA.selectionStart, AREA.selectionEnd)}`);
+  // alert(`selectionEnd:${AREA.value.substr(0, AREA.selectionEnd)}`);
+  // alert(`${AREA.value.substr(0, (AREA.selectionStart !== AREA.selectionEnd + 1) ? (AREA.selectionEnd - AREA.selectionStart) : 0)}`);
+  // }
+  AREA.focus();
+  [...KEYS].forEach((element) => {
+    element.addEventListener('mousedown', () => {
+      [...KEYS].forEach((el) => {
+        el.classList.remove('active');
+      });
+      element.addEventListener('mouseup', () => {
+        [...KEYS].forEach((el) => {
+          el.classList.remove('active');
+        });
+      });
+      element.classList.add('active');
+    });
+  });
+}
+
+function addMouseClickKey() {
+  [...KEYS].forEach((item) => item.addEventListener('click', mouseClick));
+}
+addMouseClickKey();
+
+function keyDown() {
+  document.addEventListener('keydown', (e) => {
+    [...KEYS].forEach((element) => {
+      element.classList.remove('active');
+    });
+    document.addEventListener('keyup', () => {
+      [...KEYS].forEach((el) => {
+        el.classList.remove('active');
+      });
+    });
+    document.querySelector(`div[data-code="${e.code}"]`).classList.add('active');
+    AREA.focus();
+  });
+}
+keyDown();
+
+// function controlPlusKey(targetKey, callback) {
+// document.addEventListener("keydown", (event) => {
+//   if(event.code === 'ControlLeft'){
+//     document.addEventListener("keyup", (e) => {
+//       if(e.code === 'KeyZ' || e.code === 'KeyF'){
+//         console.log('z')
+//       };
+//     });
+//   }
+//   event.preventDefault();
+// });
+// }
