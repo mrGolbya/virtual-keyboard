@@ -200,7 +200,7 @@ const KEYBOARD_RU = [
   { code: 'ArrowDown', key: '&#x25bc;' },
   { code: 'ArrowRight', key: '&#x25ba;' },
 ];
-document.body.innerHTML = `<textarea name="screen" id="area" cols="107" rows="10" placeholder="Введите данные с клавиатуры" autofocus></textarea>
+document.body.innerHTML = `<textarea name="screen" id="area" cols="107" rows="10" placeholder="Введите данные с клавиатуры" ></textarea>
                           <div id="keyboard"></div><br>
                           <div>Клавиатура создана в системе Windows <br>
                            Для языка переключения: левые Shift + Alt</div>`;
@@ -210,6 +210,7 @@ const BED_ACTION = ['Enter', 'Backspace', 'Del', 'Tab', 'Caps Lock', 'Shift', 'A
 
 const lang = (navigator.language || navigator.userLanguage || navigator.userLanguage)
   .substr(0, 2).toLowerCase();
+
 if (lang === 'ru') {
   let out = '';
   for (let i = 0; i < KEYBOARD_RU.length; i += 1) {
@@ -219,60 +220,76 @@ if (lang === 'ru') {
 } else {
   let out = '';
   for (let i = 0; i < KEYBOARD_EN.length; i += 1) {
-    out += `<div class="keyboard-key" data-code="${KEYBOARD_EN[i].code}" data-key="${KEYBOARD_EN[i].key}">${KEYBOARD_EN[i].key}</div>`;
+    out += `<div id="keyboard-key" data-code="${KEYBOARD_EN[i].code}" data-key="${KEYBOARD_EN[i].key}">${KEYBOARD_EN[i].key}</div>`;
   }
   document.querySelector('#keyboard').insertAdjacentHTML('afterbegin', `${out}`);
 }
 
-// const KEYS = document.querySelectorAll('#keyboard-key');
+const KEYS = document.querySelectorAll('#keyboard-key');
 
-// function mouseClick(event) {
-//   const ACTION_KEY = event.target.dataset.key;
-//   // const ACTION_CODE = event.target.dataset.code;
-//   if (!BED_ACTION.includes(ACTION_KEY)) {
-//     AREA.value += ACTION_KEY;
-//   } else if (ACTION_KEY === 'Enter') {
-//     AREA.value += '\n';
-//   } else if (ACTION_KEY === 'Tab') {
-//     KEYBOARD_RU = '\t';
-//   }
-//   else if (ACTION_KEY === 'Shift') {
-//     KEYBOARD_RU = KEYBOARD_EN_SHIFT;
-//   }
+function mouseClick(event) {
+  const ACTION_KEY = event.target.dataset.key;
+  if (!BED_ACTION.includes(ACTION_KEY)) {
+    AREA.value += ACTION_KEY;
+  } else if (ACTION_KEY === 'Enter') {
+    AREA.value += '\n';
+  } else if (ACTION_KEY === 'Tab') {
+    AREA.value += '  ';
+  }
+  // else if (ACTION_KEY === 'Backspace') {
+  // AREA.value = AREA.value.substr(0, AREA.value.length - 1);
+  // alert(AREA.value.substr(0, AREA.selectionStart))
+  // AREA.value = AREA.value.substr(0, AREA.selectionStart);
+  // alert(`selectionStart:${AREA.value.slice(AREA.selectionStart, AREA.selectionEnd)}`);
+  // alert(`selectionEnd:${AREA.value.substr(0, AREA.selectionEnd)}`);
+  // alert(`${AREA.value.substr(0, (AREA.selectionStart !== AREA.selectionEnd + 1) ? (AREA.selectionEnd - AREA.selectionStart) : 0)}`);
+  // }
+  AREA.focus();
+  [...KEYS].forEach((element) => {
+    element.addEventListener('mousedown', () => {
+      [...KEYS].forEach((el) => {
+        el.classList.remove('active');
+      });
+      element.addEventListener('mouseup', () => {
+        [...KEYS].forEach((el) => {
+          el.classList.remove('active');
+        });
+      });
+      element.classList.add('active');
+    });
+  });
+}
 
-//   [...KEYS].forEach((element) => {
-//     element.addEventListener('click', () => {
-//       [...KEYS].forEach((el) => {
-//         el.classList.remove('active');
-//       });
-//       element.classList.add('active');
+function addMouseClickKey() {
+  [...KEYS].forEach((item) => item.addEventListener('click', mouseClick));
+}
+addMouseClickKey();
+
+function keyDown() {
+  document.addEventListener('keydown', (e) => {
+    [...KEYS].forEach((element) => {
+      element.classList.remove('active');
+    });
+    document.addEventListener('keyup', () => {
+      [...KEYS].forEach((el) => {
+        el.classList.remove('active');
+      });
+    });
+    document.querySelector(`div[data-code="${e.code}"]`).classList.add('active');
+    AREA.focus();
+  });
+}
+keyDown();
+
+// function controlPlusKey(targetKey, callback) {
+// document.addEventListener("keydown", (event) => {
+//   if(event.code === 'ControlLeft'){
+//     document.addEventListener("keyup", (e) => {
+//       if(e.code === 'KeyZ' || e.code === 'KeyF'){
+//         console.log('z')
+//       };
 //     });
-//   });
+//   }
+//   event.preventDefault();
+// });
 // }
-
-// (function bar() {
-//   [...KEYS].forEach((item) => item.addEventListener('click', mouseClick));
-// }());
-
-// function keyDown() {
-//   document.addEventListener('keydown', (e) => {
-//     [...KEYS].forEach((element) => {
-//       element.classList.remove('active');
-//     });
-//     document.querySelector(`[data-code="${e.code}"]`).classList.add('active');
-//   });
-// }
-// keyDown();
-
-// // function controlPlusKey(targetKey, callback) {
-// // document.addEventListener("keydown", (event) => {
-// //   if(event.code === 'ControlLeft'){
-// //     document.addEventListener("keyup", (e) => {
-// //       if(e.code === 'KeyZ' || e.code === 'KeyF'){
-// //         console.log('z')
-// //       };
-// //     });
-// //   }
-// //   event.preventDefault();
-// // });
-// // }
