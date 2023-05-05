@@ -62,7 +62,6 @@ textarea {
 #keyboard-key[data-code=Space] {
   width: 376px;
 }
-
 #keyboard-key.active {
   position: relative;
   top: 1px;
@@ -70,4 +69,6 @@ textarea {
   background: #bbd8e0;
   box-shadow: 0px 2px 35px 14px rgba(127, 166, 212, 0.04);
   transition: 0.1s ease-out;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

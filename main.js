@@ -235,16 +235,18 @@ function mouseClick(event) {
     AREA.value += '\n';
   } else if (ACTION_KEY === 'Tab') {
     AREA.value += '  ';
+  } else if (ACTION_KEY === 'Backspace') {
+    if (AREA.selectionStart === AREA.selectionEnd) {
+      AREA.value = AREA.value.slice(0, AREA.selectionStart - 1);
+    } else {
+      AREA.setRangeText('', AREA.selectionStart, AREA.selectionEnd, 'start');
+    }
+  } else if (ACTION_KEY === 'Del') {
+    AREA.value = AREA.value.slice(0, AREA.selectionStart);
   }
-  // else if (ACTION_KEY === 'Backspace') {
-  // AREA.value = AREA.value.substr(0, AREA.value.length - 1);
-  // alert(AREA.value.substr(0, AREA.selectionStart))
-  // AREA.value = AREA.value.substr(0, AREA.selectionStart);
-  // alert(`selectionStart:${AREA.value.slice(AREA.selectionStart, AREA.selectionEnd)}`);
-  // alert(`selectionEnd:${AREA.value.substr(0, AREA.selectionEnd)}`);
-  // alert(`${AREA.value.substr(0, (AREA.selectionStart !== AREA.selectionEnd + 1) ? (AREA.selectionEnd - AREA.selectionStart) : 0)}`);
-  // }
+
   AREA.focus();
+
   [...KEYS].forEach((element) => {
     element.addEventListener('mousedown', () => {
       [...KEYS].forEach((el) => {
@@ -280,16 +282,3 @@ function keyDown() {
   });
 }
 keyDown();
-
-// function controlPlusKey(targetKey, callback) {
-// document.addEventListener("keydown", (event) => {
-//   if(event.code === 'ControlLeft'){
-//     document.addEventListener("keyup", (e) => {
-//       if(e.code === 'KeyZ' || e.code === 'KeyF'){
-//         console.log('z')
-//       };
-//     });
-//   }
-//   event.preventDefault();
-// });
-// }
